@@ -2,7 +2,6 @@
 
 
 Water water = new();
-
 water.Drink("fazrin");
 WriteLine(water.DrinkInternal());
 
@@ -11,7 +10,18 @@ Juice juice = new();
 juice.Drink("Drinking Juice");
 WriteLine(juice.DrinkInternal());
 
-public class Water
+Singleton obj = Singleton.Instance();
+obj.name = "Fazrin";
+obj.DoThis();
+
+Singleton obj2 = Singleton.Instance();
+obj2.name = "Farook";
+obj2.DoThis();
+
+obj.DoThis();
+
+
+internal class Water
 {
     public void Drink(string name)
     {
@@ -36,10 +46,39 @@ public class Water
     }
 }
 
-public class Juice : Water
+internal class Juice : Water
 {
     public void Make()
     {
         WriteLine("Add juice powder");
     }
 }
+
+
+internal class Tea : Water
+{
+    public void Make()
+    {
+        WriteLine("Add Milk + Tea");
+    }
+}
+
+public sealed class Singleton
+{
+    public string? name { get; set; }
+    private static Singleton _instance;
+    private Singleton() { }
+
+    public static Singleton Instance()
+    {
+        return _instance ??= new Singleton();
+    }
+
+    public void DoThis()
+    {
+        WriteLine("I am object : " + name );
+    }
+}
+
+
+
